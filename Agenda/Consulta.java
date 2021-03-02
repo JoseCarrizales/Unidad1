@@ -1,9 +1,4 @@
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
-
-public class Consulta extends JPanel
-{
+public class Consulta extends JPanel{
    JTable tabla;
    JScrollPane scroll = new JScrollPane();
    ManejoPersona mp = new ManejoPersona();
@@ -23,7 +18,7 @@ public class Consulta extends JPanel
       add(scroll);
    }
    
-   private String[][] obtenerDatos()
+   public String[][] obtenerDatos()
    {
       int x=0;
       String informacion[][] = new String[datosPer.size()][6];
