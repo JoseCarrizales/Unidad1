@@ -3,10 +3,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
+
 public class Borrar extends Panel implements ActionListener{
    JTextField txtBuscar;
    JButton OK;
    ManejoPersona mp = new ManejoPersona();
+   Consulta ob = new Consulta();
    ArrayList<Persona> datosPer = new ArrayList<Persona>();
    
    public Borrar(){
@@ -22,36 +24,40 @@ public class Borrar extends Panel implements ActionListener{
    }
    
    public void actionPerformed(ActionEvent e){
-      int x = 0;
-      int pos = 0;
-      String nombre = new String(txtBuscar.getText());
-      String aux;
-      boolean found = false;
-      
-      if(e.getSource() == OK){
-         Iterator<Persona> itrPersona = datosPer.iterator();
-         while(itrPersona.hasNext()){
-            Persona persona = itrPersona.next();
-            aux = persona.getNombre().toString();
-            if(aux.equals(nombre)){
-               found = true;
-               pos = x;
-            }
-            x++;
-         }
+      int x=1;
+      int aux=0;
+      String informacion[][] = ob.obtenerDatos();
 
-         if(found == true){
-            mp.eliminar(pos);
-            JOptionPane.showMessageDialog(null, "Registro eliminado");
-            txtBuscar.setText(null);
+      if(e.getSource() == OK)
+      {
+         String search = txtBuscar.getText();
+         String caja_text=search;
+         if(search == null || txtBuscar.getText().isEmpty())
+         {
+            JOptionPane.showMessageDialog(null, "Debe ir al menos el nombre de la persona", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             txtBuscar.requestFocus();
          }
          else
-            if(found == false){
-               JOptionPane.showMessageDialog(null, "Registro no encontrado","Error", JOptionPane.WARNING_MESSAGE);
-               txtBuscar.setText(null);
-               txtBuscar.requestFocus();
-            }
+         {
+            String cadena = "";
+            boolean ban = false;
+            for(int y=0; y < informacion.length; y++)
+            {
+               cadena=informacion[y][0];
+               if(search.equals(cadena))
+                {
+                  JOptionPane.showMessageDialog(null, "Se eliminara el usuario", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                  ban = true;
+                  mp.eliminar(y);
+                  break;
+                }
+             }
+             if(ban == false)
+               {
+                  JOptionPane.showMessageDialog(null, "No se encontro el usuario", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+               }
+            
+         }
       }
    }
 }
