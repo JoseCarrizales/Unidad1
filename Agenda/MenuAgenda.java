@@ -36,7 +36,7 @@ public class MenuAgenda extends JPanel implements ActionListener{
             }
             else
                if(e.getSource() == btnMod){
-                  //JFrameMod fm = new JFrameMod();
+                  JFrameModificar fm = new JFrameModificar();
                }
   }
 }
